@@ -77,6 +77,7 @@ display/gc400x240/ili9327.c
 display/gc400x240/s6d04d1.c
 display/gc400x240/st7793.c
 
+display/gc480x320/hx8357c.c
 display/gc480x320/ili9481.c
 display/gc480x320/ili9486.c
 display/gc480x320/r61581.c
