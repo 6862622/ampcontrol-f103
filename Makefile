@@ -50,7 +50,7 @@ ifeq "$(DEBUG_KARADIO)" "YES"
   C_DEFS += -D_DEBUG_KARADIO
 endif
 
-C_SOURCES = main.c
+CPP_SOURCES += main.cpp
 
 C_SOURCES += actions.c
 C_SOURCES += amp.c
@@ -242,6 +242,7 @@ LDFLAGS = $(MCU) -specs=nosys.specs -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(
 # Main definitions
 PREFIX = arm-none-eabi-
 CC = $(PREFIX)gcc
+CPP = $(PREFIX)g++
 AS = $(PREFIX)gcc -x assembler-with-cpp
 CP = $(PREFIX)objcopy
 OD = $(PREFIX)objdump
@@ -251,8 +252,10 @@ SZ = $(PREFIX)size
 OPENOCD := openocd
 OPENOCD_CFG := system/$(call lc, $(STM32_GROUP))_openocd.cfg
 
-OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(C_SOURCES:.c=.o)))
+OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(C_SOURCES:.c=.o)))
 vpath %.c $(sort $(dir $(C_SOURCES)))
+OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(CPP_SOURCES:.cpp=.o)))
+vpath %.cpp $(sort $(dir $(CPP_SOURCES)))
 OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.s=.o)))
 vpath %.s $(sort $(dir $(ASM_SOURCES)))
 
@@ -277,6 +280,10 @@ size: $(ELF)
 $(BUILD_DIR)/%.o: %.c Makefile
 	@mkdir -p $(dir $@)
 	$(CC) -c $(CFLAGS) $(C_DEFS) -o $@ $<
+
+$(BUILD_DIR)/%.o: %.cpp Makefile
+	@mkdir -p $(dir $@)
+	$(CPP) -c $(CFLAGS) $(C_DEFS) -o $@ $<
 
 $(BUILD_DIR)/%.o: %.s Makefile
 	@mkdir -p $(dir $@)
