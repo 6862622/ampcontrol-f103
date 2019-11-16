@@ -87,8 +87,9 @@ void TIM2_IRQHandler(void)
         LL_TIM_ClearFlag_UPDATE(TIM2);
 
         // Callbacks
-        screenPwm();
         spConvertADC();
+        inputConvertADC();
+        screenPwm();
     }
 }
 

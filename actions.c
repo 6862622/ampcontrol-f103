@@ -380,6 +380,15 @@ static void actionRemapBtnShort(void)
     case ENC_B:
         actionSet(ACTION_ENCODER, +1);
         break;
+    case BTN_A0:
+        actionSet(ACTION_STANDBY, FLAG_SWITCH);
+        break;
+    case BTN_A1:
+        actionSet(ACTION_AUDIO_INPUT, FLAG_NEXT);
+        break;
+    case BTN_A2:
+        actionSet(ACTION_NAVIGATE, RC_CMD_NAV_OK);
+        break;
     default:
         break;
     }

@@ -22,6 +22,10 @@ extern "C" {
 #define ENC_B                   0x0080
 #define ENC_AB                  (ENC_A | ENC_B)
 
+#define BTN_A0                  0x0100
+#define BTN_A1                  0x0200
+#define BTN_A2                  0x0400
+
 // Handling long press actions
 #define SHORT_PRESS             60
 #define LONG_PRESS              600
@@ -33,10 +37,22 @@ extern "C" {
 #define BTN_FLAG_NO             0x0000
 #define BTN_FLAG_LONG_PRESS     0x0001
 
+#define ANALOG_INPUT_NUM        4
+
 typedef struct {
     uint16_t btn;
     uint16_t flags;
 } CmdBtn;
+
+typedef uint8_t AnalogInput;
+enum {
+    AIN_BTN = 0,
+    AIN_POT_A,
+    AIN_POT_B,
+    AIN_POT_C,
+
+    AIN_END
+};
 
 void inputInit(void);
 
@@ -47,6 +63,8 @@ void inputPoll(void);
 
 int8_t getEncoder(void);
 CmdBtn getBtnCmd(void);
+
+void inputConvertADC(void);
 
 #ifdef __cplusplus
 }
