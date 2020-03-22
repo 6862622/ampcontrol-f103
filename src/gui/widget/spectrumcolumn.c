@@ -60,6 +60,6 @@ void spectrumColumnDraw(SpectrumColumn *col, GlcdRect *rect, bool clear, color_t
 
     // Draw new peak
     if (p > s) {
-        glcdDrawRect(x, y - p, w, 1, pal->spPeak);
+        glcdDrawRect(x, y - p, w, 3, pal->spPeak);
     }
 }
